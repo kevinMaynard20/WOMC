@@ -1,40 +1,36 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.commands.drivecommands;
 
+nstants;
+import frc.robot.subsystems.DriveSubsystem;
+import java.util.function.Supplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ArcadeDrive extends CommandBase {
-  /**
-   * Creates a new ArcadeDrive.
-   */
-  public ArcadeDrive() {
-    // Use addRequirements() here to declare subsystem dependencies.
-  }
+public class ArcadeDriveCommand extends CommandBase {
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-  }
+	private final DriveSubsystem m_driveSubsystem;
+	private final Supplier<Double> m_speedStraight, m_speedLeft, m_speedRight;
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-  }
+	/**
+	 * Drive using speed inputs as a percentage output of the motor
+	 * 
+	 * @param DriveSubsystem
+	 * @param speedStraight  Supplier of straight speed
+	 * @param speedLeft      Supplier of left speed
+	 * @param speedRight     Supplier of right speed
+	 */
+	public ArcadeDriveCommand(DriveSubsystem driveSubsystem, Supplier<Double> speedStraight, Supplier<Double> speedLeft,
+			Supplier<Double> speedRight) {
+		m_driveSubsystem = driveSubsystem;
+		m_speedStraight = speedStraight;
+		m_speedLeft = speedLeft;
+		m_speedRight = speedRight;
+		addRequirements(driveSubsystem);
+	}
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+	public void execute() {
+		double speedStraight = Math.abs(m_speedStraight.get()) > ControllerConstants.kDeadzone ? m_speedStraight.get(): 0;
+		double speedLeft = Math.abs(m_speedLeft.get()) > ControllerConstants.kDeadzone ? m_speedLeft.get() : 0;
+		double speedRight = Math.abs(m_speedRight.get()) > ControllerConstants.kDeadzone ? m_speedRight.get() : 0;
+		m_driveSubsystem.arcadeDrive(speedStraight, speedLeft, speedRight);
+	}
 }
