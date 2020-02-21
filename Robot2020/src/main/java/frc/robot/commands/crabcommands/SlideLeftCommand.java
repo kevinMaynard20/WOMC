@@ -1,0 +1,23 @@
+package frc.robot.commands.crabcommands;
+
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.CrabSubsystem;
+
+public class SlideLeftCommand extends CommandBase {
+
+  private final CrabSubsystem m_crabSubsystem;
+
+  public SlideLeftCommand(CrabSubsystem crabSubsystem) {
+    m_crabSubsystem = crabSubsystem;
+    addRequirements(crabSubsystem);
+  }
+
+  public void execute() {
+    m_crabSubsystem.slideLeft();
+  }
+
+  public void end(boolean interrupted) {
+    m_crabSubsystem.stop();
+  }
+
+}

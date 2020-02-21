@@ -3,13 +3,12 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.HopperConstants;
 
 public class HopperSubsystem extends SubsystemBase {
-    private final DoubleSolenoid m_door = new DoubleSolenoid(50, HopperConstants.kDoorForwardPort,
-            HopperConstants.kDoorReversePort);
-    private final DoubleSolenoid m_basket = new DoubleSolenoid(50, HopperConstants.kBasketForwardPort,
-            HopperConstants.kBasketReversePort);
+    private final DoubleSolenoid m_basket = new DoubleSolenoid(Constants.kPCMID, HopperConstants.kForwardPort,
+            HopperConstants.kReversePort);
 
     public HopperSubsystem() {
     }
@@ -22,11 +21,4 @@ public class HopperSubsystem extends SubsystemBase {
         m_basket.set(Value.kReverse);
     }
 
-    public void openDoor() {
-        m_door.set(Value.kForward);
-    }
-
-    public void closeDoor() {
-        m_door.set(Value.kReverse);
-    }
 }

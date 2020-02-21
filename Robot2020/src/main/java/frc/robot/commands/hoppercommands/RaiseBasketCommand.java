@@ -15,7 +15,7 @@ public class RaiseBasketCommand extends CommandBase {
         m_hopperSubsystem.raiseBasket();
     }
 
-    public void end(boolean interruped){
+    public void end(boolean interruped) {
         m_hopperSubsystem.lowerBasket();
     }
 }

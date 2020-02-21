@@ -3,19 +3,22 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.InvertType;
 
 public final class Constants {
-    public static final class BarSlideConstants {
-        public static final boolean kInversion = true;
-        public static final int kMotorPort = 8;
-        public static final double kSlideSpeed = .5;
-    }
+    public static final int kPCMID = 50;
 
     public static final class ClimberConstants {
         public static final boolean kExtendInversion = false;
         public static final int kExtendPort = 5;
-        public static final double kExtendSpeed = 1;
         public static final boolean kRetractInversion = false;
         public static final int kRetractPort = 2;
+        // Change the values below to vary speed climbing and retracting, from 0-1 with
+        // 0 not moving at all
+        public static final double kExtendSpeed = 1;
         public static final double kRetractSpeed = 1;
+    }
+
+    public static final class ColorWheelConstants {
+        public static final int kForwardChannel = 4;
+        public static final int kReverseChannel = 5;
     }
 
     public static final class ControllerConstants {
@@ -23,7 +26,10 @@ public final class Constants {
         public static final int kOperatorControllerPort = 1;
         public static final double kDeadzone = 0.15;
         public static final double kTriggerDeadzone = .05;
-        public static final double kSlowMultplier = .2;//Change this to be faster or slower. Value from 0-1 with 1 being full speed
+        // Change the values below to vary the turning sensitivity, from 0-1 with 0 not
+        // moving at all
+        public static final double kSlowMultiplier = .2;
+        public static final double kFastMultiplier = .8;
 
         public static final class Button {
             public static final int kBumperLeft = 5;
@@ -39,12 +45,17 @@ public final class Constants {
         }
     }
 
-    public static final class ColorWheelConstants {
-        public static final int kForwardChannel = 4;
-        public static final int kReverseChannel = 5;
-        public static final int kMotorPort = 1;
-        public static final boolean kInversion = false;
-        public static final double kSpeed = 1;
+    public static final class CrabConstants {
+        public static final boolean kInversion = true;
+        public static final int kMotorPort = 8;
+        // Change the value below to vary crabbing speed, from 0-1 with 0 not moving at
+        // all
+        public static final double kSlideSpeed = .5;
+    }
+
+    public static final class DoorConstants {
+        public static final int kForwardPort = 0;
+        public static final int kReversePort = 1;
     }
 
     public static final class DriveConstants {
@@ -60,10 +71,8 @@ public final class Constants {
     }
 
     public static final class HopperConstants {
-        public static final int kDoorForwardPort = 0;
-        public static final int kDoorReversePort = 1;
-        public static final int kBasketForwardPort = 2;
-        public static final int kBasketReversePort = 3;
+        public static final int kForwardPort = 2;
+        public static final int kReversePort = 3;
     }
 
     public static final class LimelightConstants {
@@ -78,5 +87,13 @@ public final class Constants {
         public static final double kCameraHeight = 27.6;
         public static final double kCameraAngle = 18.43;
         public static final double kTargetHeight = 89.75;
+    }
+
+    public static final class SpinConstants {
+        public static final int kMotorPort = 1;
+        public static final boolean kInversion = false;
+        // Change the value below to vary the control panel motor speed, from 0-1 with 0
+        // not moving at all
+        public static final double kSpeed = 1;
     }
 }

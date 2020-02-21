@@ -3,22 +3,22 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ColorWheelConstants;
+import frc.robot.Constants.SpinConstants;
 
-/**
- * Add your docs here.
- */
-public class SpinSubsystem extends SubsystemBase  {
+public class SpinSubsystem extends SubsystemBase {
 
-    private final VictorSPX m_motor = new VictorSPX(ColorWheelConstants.kMotorPort);
+    private final VictorSPX m_motor = new VictorSPX(SpinConstants.kMotorPort);
 
     public SpinSubsystem() {
-        m_motor.setInverted(ColorWheelConstants.kInversion);
+        m_motor.setInverted(SpinConstants.kInversion);
     }
-    public void spin(Double speed){
-        m_motor.set(ControlMode.PercentOutput, speed);
+
+    public void spin() {
+        m_motor.set(ControlMode.PercentOutput, SpinConstants.kSpeed);
+    }
+
+    public void stopSpin() {
+        m_motor.set(ControlMode.PercentOutput, 0);
     }
 }
