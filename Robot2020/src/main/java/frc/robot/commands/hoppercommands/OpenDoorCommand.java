@@ -14,4 +14,8 @@ public class OpenDoorCommand extends CommandBase {
     public void initialize() {
         m_hopperSubsystem.openDoor();
     }
+
+    public void end(boolean interruped){
+        m_hopperSubsystem.closeDoor();
+    }
 }

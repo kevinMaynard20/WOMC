@@ -17,6 +17,7 @@ public class RetractCommand extends CommandBase {
   private final ClimberSubsystem m_climberSubsystem;
   public RetractCommand(ClimberSubsystem climberSubsystem) {
     m_climberSubsystem = climberSubsystem;
+    addRequirements(climberSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -25,5 +26,7 @@ public class RetractCommand extends CommandBase {
       m_climberSubsystem.retract();
   }
 
-  
+  public void end(boolean interrputed){
+    m_climberSubsystem.stop();
+  }
 }

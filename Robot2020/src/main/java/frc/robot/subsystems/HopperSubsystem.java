@@ -6,9 +6,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.HopperConstants;
 
 public class HopperSubsystem extends SubsystemBase {
-    private final DoubleSolenoid m_door = new DoubleSolenoid(HopperConstants.kDoorForwardPort,
+    private final DoubleSolenoid m_door = new DoubleSolenoid(50, HopperConstants.kDoorForwardPort,
             HopperConstants.kDoorReversePort);
-    private final DoubleSolenoid m_basket = new DoubleSolenoid(HopperConstants.kBasketForwardPort,
+    private final DoubleSolenoid m_basket = new DoubleSolenoid(50, HopperConstants.kBasketForwardPort,
             HopperConstants.kBasketReversePort);
 
     public HopperSubsystem() {

@@ -8,25 +8,25 @@
 package frc.robot.commands.colorwheelcommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.ColorWheelConstants;
 import frc.robot.subsystems.ColorWheelSubsystem;
+import frc.robot.subsystems.SpinSubsystem;
 
 public class SpinCommand extends CommandBase {
   /**OpenDoorCommand
    * Creates a new LowerTruckCommand.
    */
-  private final ColorWheelSubsystem m_colorWheelSubsystem;
-  public SpinCommand(ColorWheelSubsystem colorWheelSubsystem) {
-    m_colorWheelSubsystem = colorWheelSubsystem;
+  private final SpinSubsystem m_spinSubsystem;
+  public SpinCommand(SpinSubsystem colorWheelSubsystem) {
+    m_spinSubsystem = colorWheelSubsystem;
+    addRequirements(colorWheelSubsystem);
   }
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-      
+  public void execute(){
+    m_spinSubsystem.spin(ColorWheelConstants.kSpeed);
   }
-  public void execute(double speed){
-    m_colorWheelSubsystem.spin(speed);
+  public void end(boolean interruped){
+    m_spinSubsystem.spin(0.0);
   }
-
   
 }

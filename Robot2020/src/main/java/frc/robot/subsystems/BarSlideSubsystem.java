@@ -21,5 +21,9 @@ public class BarSlideSubsystem extends SubsystemBase {
     public void slideRight(){
         m_motor.set(ControlMode.PercentOutput, -BarSlideConstants.kSlideSpeed);
     }
+
+    public void stop(){
+        m_motor.set(ControlMode.PercentOutput, 0);
+    }
     
 }

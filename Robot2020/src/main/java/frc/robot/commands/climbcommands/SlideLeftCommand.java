@@ -10,24 +10,23 @@ package frc.robot.commands.climbcommands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BarSlideSubsystem;
 
-
 public class SlideLeftCommand extends CommandBase {
-  /**OpenDoorCommand
-   * Creates a new LowerTruckCommand.
+  /**
+   * OpenDoorCommand Creates a new LowerTruckCommand.
    */
   private final BarSlideSubsystem m_barSlideSubsystem;
+
   public SlideLeftCommand(BarSlideSubsystem barSlideSubsystem) {
     m_barSlideSubsystem = barSlideSubsystem;
+    addRequirements(barSlideSubsystem);
   }
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-     
-  }
-  public void execute(){
-      m_barSlideSubsystem.slideLeft();
+  public void execute() {
+    m_barSlideSubsystem.slideLeft();
   }
 
-  
+  public void end(boolean interrupted) {
+    m_barSlideSubsystem.stop();
+  }
+
 }
