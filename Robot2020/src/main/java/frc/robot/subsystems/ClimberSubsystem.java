@@ -17,18 +17,20 @@ import frc.robot.Constants.ClimberConstants;
  * Add your docs here.
  */
 public class ClimberSubsystem extends SubsystemBase {
-    private final VictorSPX m_extendMotor = VictorSPX(ClimberConstants.kExtendPort);
-    private final VictorSPX m_retractMotor = VictorSPX(ClimberConstants.kRetractPort);
-    public ClimberSubsystem(){
+    private final VictorSPX m_extendMotor = new VictorSPX(ClimberConstants.kExtendPort);
+    private final VictorSPX m_retractMotor = new VictorSPX(ClimberConstants.kRetractPort);
+
+    public ClimberSubsystem() {
         m_extendMotor.setInverted(ClimberConstants.kExtendInversion);
         m_retractMotor.setInverted(ClimberConstants.kRetractInversion);
     }
-    public void extend(){
+
+    public void extend() {
         m_extendMotor.set(ControlMode.PercentOutput, ClimberConstants.kExtendSpeed);
     }
-    public void retract(){
+
+    public void retract() {
         m_retractMotor.set(ControlMode.PercentOutput, ClimberConstants.kRetractSpeed);
     }
-
 
 }

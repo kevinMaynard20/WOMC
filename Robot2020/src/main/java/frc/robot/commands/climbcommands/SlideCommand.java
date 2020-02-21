@@ -10,5 +10,5 @@ package frc.robot.commands.climbcommands;
 /**
  * Add your docs here.
  */
-public class GripCommand {
+public class SlideCommand {
 }

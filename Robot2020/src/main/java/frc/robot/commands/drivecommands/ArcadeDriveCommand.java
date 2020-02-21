@@ -1,6 +1,6 @@
 package frc.robot.commands.drivecommands;
 
-nstants;
+import frc.robot.Constants.ControllerConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import java.util.function.Supplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -28,7 +28,8 @@ public class ArcadeDriveCommand extends CommandBase {
 	}
 
 	public void execute() {
-		double speedStraight = Math.abs(m_speedStraight.get()) > ControllerConstants.kDeadzone ? m_speedStraight.get(): 0;
+		double speedStraight = Math.abs(m_speedStraight.get()) > ControllerConstants.kDeadzone ? m_speedStraight.get()
+				: 0;
 		double speedLeft = Math.abs(m_speedLeft.get()) > ControllerConstants.kDeadzone ? m_speedLeft.get() : 0;
 		double speedRight = Math.abs(m_speedRight.get()) > ControllerConstants.kDeadzone ? m_speedRight.get() : 0;
 		m_driveSubsystem.arcadeDrive(speedStraight, speedLeft, speedRight);
