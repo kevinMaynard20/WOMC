@@ -2,10 +2,10 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.HopperConstants;
 
-public class HopperSubsystem extends CommandBase {
+public class HopperSubsystem extends SubsystemBase {
     private final DoubleSolenoid m_door = new DoubleSolenoid(HopperConstants.kDoorForwardPort,
             HopperConstants.kDoorReversePort);
     private final DoubleSolenoid m_basket = new DoubleSolenoid(HopperConstants.kBasketForwardPort,

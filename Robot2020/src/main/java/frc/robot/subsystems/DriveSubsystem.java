@@ -27,11 +27,10 @@ public class DriveSubsystem extends SubsystemBase {
 
     /**
      * @param straight Straight percent output
-     * @param left     Left percent output
-     * @param right    Right percent output
+     * @param left     Rotation percent output
      */
-    public void arcadeDrive(double straight, double left, double right) {
-        tankDrive(straight - left + right, straight + left - right);
+    public void arcadeDrive(double straight, double rot) {
+        tankDrive(straight + rot, straight - rot);
     }
 
     /**
