@@ -50,4 +50,17 @@ public final class Constants {
         public static final int kBasketReversePort = 3;
     }
 
+    public static final class LimelightConstants {
+        public static final double kDisP = .016;
+        public static final double kDisI = 0;
+        public static final double kDisD = 0;
+        public static final double kTurnP = 0.022;
+        public static final double kTurnI = 0.00001;
+        public static final double kTurnD = 0;
+        public static final double kTurnTolerance = .1;
+        public static final double kDistanceTolerance = .1;
+        public static final double kCameraHeight = 27.6;
+        public static final double kCameraAngle = 18.43;
+        public static final double kTargetHeight = 89.75;
+    }
 }
