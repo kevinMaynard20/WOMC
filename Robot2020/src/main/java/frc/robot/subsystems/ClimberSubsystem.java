@@ -10,30 +10,25 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.BarSlideConstants;
-import frc.robot.Constants.ColorWheelConstants;
+import frc.robot.Constants.ClimberConstants;
 
 /**
  * Add your docs here.
  */
-public class ColorWheelSubsystem extends SubsystemBase  {
-    private final DoubleSolenoid m_colorPiston = new DoubleSolenoid(ColorWheelConstants.kForwardChannel,
-            ColorWheelConstants.kReverseChannel);
-    private final VictorSPX m_motor = new VictorSPX(ColorWheelConstants.kMotorPort);
-
-    public ColorWheelSubsystem() {
-        m_motor.setInverted(ColorWheelConstants.kInversion);
+public class ClimberSubsystem extends SubsystemBase {
+    private final VictorSPX m_extendMotor = VictorSPX(ClimberConstants.kExtendPort);
+    private final VictorSPX m_retractMotor = VictorSPX(ClimberConstants.kRetractPort);
+    public ClimberSubsystem(){
+        m_extendMotor.setInverted(ClimberConstants.kExtendInversion);
+        m_retractMotor.setInverted(ClimberConstants.kRetractInversion);
     }
     public void extend(){
-        m_colorPiston.set(Value.kForward);
+        m_extendMotor.set(ControlMode.PercentOutput, ClimberConstants.kExtendSpeed);
     }
     public void retract(){
-        m_colorPiston.set(Value.kReverse);
+        m_retractMotor.set(ControlMode.PercentOutput, ClimberConstants.kRetractSpeed);
     }
-    public void spin(Double speed){
-        m_motor.set(ControlMode.PercentOutput, speed);
-    }
+
+
 }

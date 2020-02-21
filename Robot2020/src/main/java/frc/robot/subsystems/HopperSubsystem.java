@@ -23,10 +23,10 @@ public class HopperSubsystem extends CommandBase {
     }
 
     public void openDoor() {
-        m_basket.set(Value.kForward);
+        m_door.set(Value.kForward);
     }
 
     public void closeDoor() {
-        m_basket.set(Value.kReverse);
+        m_door.set(Value.kReverse);
     }
 }
