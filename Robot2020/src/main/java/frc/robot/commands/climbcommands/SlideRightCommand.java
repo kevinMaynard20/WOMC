@@ -8,21 +8,25 @@
 package frc.robot.commands.climbcommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.BarSlideSubsystem;
 
-public class RetractCommand extends CommandBase {
+
+public class SlideRightCommand extends CommandBase {
   /**OpenDoorCommand
    * Creates a new LowerTruckCommand.
    */
-  private final ClimberSubsystem m_climberSubsystem;
-  public RetractCommand(ClimberSubsystem climberSubsystem) {
-    m_climberSubsystem = climberSubsystem;
+  private final BarSlideSubsystem m_barSlideSubsystem;
+  public SlideRightCommand(BarSlideSubsystem barSlideSubsystem) {
+    m_barSlideSubsystem = barSlideSubsystem;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      m_climberSubsystem.retract();
+     
+  }
+  public void execute(){
+      m_barSlideSubsystem.slideRight();
   }
 
   
