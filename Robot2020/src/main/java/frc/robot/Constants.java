@@ -18,6 +18,8 @@ public final class Constants {
         public static final double kP = 0;
         public static final double kI = 0;
         public static final double kD = 0;
+        public static final double kLowerArmSetPoint = 0;
+        public static final double kUpperArmSetPoint = 0;
         public static final TrapezoidProfile.Constraints kConstraint = new TrapezoidProfile.Constraints(3, 3);
     }
 
