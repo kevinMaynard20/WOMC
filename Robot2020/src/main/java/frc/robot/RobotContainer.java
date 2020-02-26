@@ -13,15 +13,18 @@ import frc.robot.commands.colorwheelcommands.ExtendBarCommand;
 import frc.robot.commands.colorwheelcommands.SpinCommand;
 import frc.robot.commands.crabcommands.SlideLeftCommand;
 import frc.robot.commands.crabcommands.SlideRightCommand;
-import frc.robot.commands.doorcommands.OpenDoorCommand;
+import frc.robot.commands.*;
+import frc.robot.commands.armcommands.LowerArmCommand;
+import frc.robot.commands.armcommands.ManualControlCommand;
+import frc.robot.commands.armcommands.RaiseArmCommand;
 import frc.robot.commands.drivecommands.ArcadeDriveCommand;
-import frc.robot.commands.hoppercommands.RaiseBasketCommand;
+import frc.robot.commands.intakecommands.ManualIntakeCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.ColorWheelSubsystem;
 import frc.robot.subsystems.CrabSubsystem;
-import frc.robot.subsystems.DoorSubsystem;
+
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.HopperSubsystem;
+import frc.robot.subsystems.*;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.SpinSubsystem;
 
@@ -30,11 +33,11 @@ public class RobotContainer {
   private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
   private final ColorWheelSubsystem m_colorWheelSubsystem = new ColorWheelSubsystem();
   private final CrabSubsystem m_crabSubsystem = new CrabSubsystem();
-  private final DoorSubsystem m_doorSubsystem = new DoorSubsystem();
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
-  private final HopperSubsystem m_hopperSubsystem = new HopperSubsystem();
   private final LimelightSubsystem m_limelightSubsystem = new LimelightSubsystem();
   private final SpinSubsystem m_spinSubsystem = new SpinSubsystem();
+  private final ArmSubsystem m_armSubsystem = new ArmSubsystem();
+  private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final Compressor m_compressor = new Compressor(Constants.kPCMID);
 
   // Controllers
@@ -56,9 +59,13 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kBumperRight).whenHeld(new SlideRightCommand(m_crabSubsystem));
 
     // Operator
-    new JoystickButton(m_operatorController, Button.kX).toggleWhenPressed(new RaiseBasketCommand(m_hopperSubsystem));
-    new JoystickButton(m_operatorController, Button.kA).toggleWhenPressed(new OpenDoorCommand(m_doorSubsystem));
+    new JoystickButton(m_operatorController, Button.kX).whenPressed(new RaiseArmCommand(m_armSubsystem));
+    new JoystickButton(m_operatorController, Button.kA).whenPressed(new LowerArmCommand(m_armSubsystem));
+    m_armSubsystem
+        .setDefaultCommand(new ManualControlCommand(m_armSubsystem, () -> m_operatorController.getY(Hand.kRight)));
 
+    m_intakeSubsystem.setDefaultCommand(new ManualIntakeCommand(m_intakeSubsystem,
+        () -> m_operatorController.getTriggerAxis(Hand.kRight), () -> m_operatorController.getTriggerAxis(Hand.kLeft)));
     new JoystickButton(m_operatorController, Button.kBumperLeft).whenHeld(new ExtendCommand(m_climberSubsystem));
     new JoystickButton(m_operatorController, Button.kBumperRight).whenHeld(new RetractCommand(m_climberSubsystem));
 

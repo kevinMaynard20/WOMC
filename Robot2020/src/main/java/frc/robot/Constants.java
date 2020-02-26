@@ -85,18 +85,18 @@ public final class Constants {
         public static final SPI.Port kGyroPort = SPI.Port.kMXP;
         public static final boolean kGyroReversed = true;
 
-        public static final double ksVolts = .77;
-        public static final double kvVoltSecondsPerMeter = 5.84;
-        public static final double kaVoltSecondsSquaredPerMeter = .627;
-        public static final double kPDriveVel = 1.69;
-        public static final double kTrackwidthMeters = 0.713288;
+        public static final double ksVolts = .338;
+        public static final double kvVoltSecondsPerMeter = 1.42;
+        public static final double kaVoltSecondsSquaredPerMeter = .164;
+        public static final double kPDriveVel = .707;
+        public static final double kTrackwidthMeters = 0.566991171;
         public static final double kMaxSpeedMetersPerSecond = 2;
         public static final double kMaxAccelerationMetersPerSecondSquared = .6;
         public static final double kMaxRotSpeedMetersPerSecond = 2;
         public static final double kRamseteB = 2;
         public static final double kRamseteZeta = .7;
         public static final double kWheelDiameterMeters = .1524;
-        public static final double kEncoderEdgesPerRotation = 4106;
+        public static final double kEncoderEdgesPerRotation = 12_288;
 
         public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
                 kTrackwidthMeters);

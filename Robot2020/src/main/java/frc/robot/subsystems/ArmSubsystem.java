@@ -25,6 +25,9 @@ public class ArmSubsystem extends SubsystemBase {
     public void setPosition(double setPoint) {
         m_pidController.setGoal(setPoint);
     }
+    public void override(double speed){
+        m_motor.set(ControlMode.PercentOutput, speed);
+    }
 
     public void resetEncoder() {
         m_motor.setSelectedSensorPosition(0);

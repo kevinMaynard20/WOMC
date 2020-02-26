@@ -15,9 +15,6 @@ public class IntakeCommand extends CommandBase {
         m_intakeSubsystem.run(0);
     }
 
-    public void execute(double speed) {
-        m_intakeSubsystem.run(speed);
-    }
 
     public void end(boolean interrputed) {
         m_intakeSubsystem.run(0);
