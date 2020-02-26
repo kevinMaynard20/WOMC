@@ -2,8 +2,24 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.InvertType;
 
+import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
+import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
+
 public final class Constants {
     public static final int kPCMID = 50;
+
+    public static final class ArmConstants {
+        public static final int kMotorPort = 6;
+        public static final boolean kInvert = false;
+        public static final double kP = 0;
+        public static final double kI = 0;
+        public static final double kD = 0;
+        public static final TrapezoidProfile.Constraints kConstraint = new TrapezoidProfile.Constraints(3, 3);
+    }
 
     public static final class ClimberConstants {
         public static final boolean kExtendInversion = false;
@@ -53,26 +69,49 @@ public final class Constants {
         public static final double kSlideSpeed = .5;
     }
 
-    public static final class DoorConstants {
-        public static final int kForwardPort = 0;
-        public static final int kReversePort = 1;
-    }
-
     public static final class DriveConstants {
-        public static final int kMasterLeftPort = 4;
+        public static final int kMasterLeftPort = 3;
         public static final InvertType kMasterLeftInvert = InvertType.None;
-        public static final int kFollowerLeftPort = 6;
+        public static final int kFollowerLeftPort = 10;
         public static final InvertType kFollowerLeftInvert = InvertType.None;
 
-        public static final int kMasterRightPort = 3;
+        public static final int kMasterRightPort = 7;
         public static final InvertType kMasterRightInvert = InvertType.InvertMotorOutput;
-        public static final int kFollowerRightPort = 7;
+        public static final int kFollowerRightPort = 9;
         public static final InvertType kFollowerRightInvert = InvertType.InvertMotorOutput;
+
+        public static final SPI.Port kGyroPort = SPI.Port.kMXP;
+        public static final boolean kGyroReversed = true;
+
+        public static final double ksVolts = .77;
+        public static final double kvVoltSecondsPerMeter = 5.84;
+        public static final double kaVoltSecondsSquaredPerMeter = .627;
+        public static final double kPDriveVel = 1.69;
+        public static final double kTrackwidthMeters = 0.713288;
+        public static final double kMaxSpeedMetersPerSecond = 2;
+        public static final double kMaxAccelerationMetersPerSecondSquared = .6;
+        public static final double kMaxRotSpeedMetersPerSecond = 2;
+        public static final double kRamseteB = 2;
+        public static final double kRamseteZeta = .7;
+        public static final double kWheelDiameterMeters = .1524;
+        public static final double kEncoderEdgesPerRotation = 4106;
+
+        public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
+                kTrackwidthMeters);
+        public static final SimpleMotorFeedforward kFeedForward = new SimpleMotorFeedforward(DriveConstants.ksVolts,
+                DriveConstants.kvVoltSecondsPerMeter, DriveConstants.kaVoltSecondsSquaredPerMeter);
+        public static final DifferentialDriveVoltageConstraint kVoltageConstraint = new DifferentialDriveVoltageConstraint(
+                DriveConstants.kFeedForward, DriveConstants.kDriveKinematics, 10);
+        public static final TrajectoryConfig kTrajectoryConfig = new TrajectoryConfig(
+                DriveConstants.kMaxSpeedMetersPerSecond, DriveConstants.kMaxAccelerationMetersPerSecondSquared)
+                        .setKinematics(DriveConstants.kDriveKinematics)
+                        .addConstraint(DriveConstants.kVoltageConstraint);
+
     }
 
-    public static final class HopperConstants {
-        public static final int kForwardPort = 2;
-        public static final int kReversePort = 3;
+    public static final class IntakeConstants {
+        public static final int kMotorPort = 4;
+        public static final boolean kInvert = false;
     }
 
     public static final class LimelightConstants {
