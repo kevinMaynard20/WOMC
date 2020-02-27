@@ -19,12 +19,12 @@ public class ClimberSubsystem extends SubsystemBase {
         m_retractMotor.setNeutralMode(NeutralMode.Coast);
     }
 
-    public void extend() {
-        m_extendMotor.set(ControlMode.PercentOutput, ClimberConstants.kExtendSpeed);
+    public void extend(double speed) {
+        m_extendMotor.set(ControlMode.PercentOutput, speed);
     }
 
-    public void retract() {
-        m_retractMotor.set(ControlMode.PercentOutput, ClimberConstants.kRetractSpeed);
+    public void retract(double speed) {
+        m_retractMotor.set(ControlMode.PercentOutput, speed);
     }
 
     public void stopExtend() {
@@ -34,5 +34,4 @@ public class ClimberSubsystem extends SubsystemBase {
     public void stopRetract() {
         m_extendMotor.set(ControlMode.PercentOutput, 0);
     }
-
 }

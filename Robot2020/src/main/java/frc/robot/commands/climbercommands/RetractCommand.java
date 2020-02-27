@@ -1,6 +1,7 @@
 package frc.robot.commands.climbercommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.ClimberConstants;
 import frc.robot.subsystems.ClimberSubsystem;
 
 public class RetractCommand extends CommandBase {
@@ -12,7 +13,7 @@ public class RetractCommand extends CommandBase {
   }
 
   public void initialize() {
-    m_climberSubsystem.retract();
+    m_climberSubsystem.retract(ClimberConstants.kRetractSpeed);
   }
 
   public void end(boolean interrputed) {

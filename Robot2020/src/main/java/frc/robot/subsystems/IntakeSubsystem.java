@@ -15,7 +15,11 @@ public class IntakeSubsystem extends SubsystemBase {
         m_motor.setNeutralMode(NeutralMode.Brake);
     }
 
-    public void run(double speed){
+    public void run(double speed) {
         m_motor.set(ControlMode.PercentOutput, speed);
+    }
+
+    public void stop() {
+        m_motor.set(ControlMode.PercentOutput, 0);
     }
 }

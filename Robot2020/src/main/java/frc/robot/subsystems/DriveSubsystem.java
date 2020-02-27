@@ -44,6 +44,7 @@ public class DriveSubsystem extends SubsystemBase {
         m_odometry.update(Rotation2d.fromDegrees(getHeading()), getLeftEncoderPosition(), getRightEncoderPosition());
         SmartDashboard.putNumber("Left velocity", getLeftEncoderVelocity());
         SmartDashboard.putNumber("Right velocity", getRightEncoderVelocity());
+        SmartDashboard.putNumber("Heading", getPose().getRotation().getDegrees());
     }
 
     /**

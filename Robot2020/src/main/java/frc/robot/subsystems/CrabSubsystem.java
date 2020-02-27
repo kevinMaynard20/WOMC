@@ -15,16 +15,11 @@ public class CrabSubsystem extends SubsystemBase {
         m_motor.setNeutralMode(NeutralMode.Brake);
     }
 
-    public void slideLeft() {
-        m_motor.set(ControlMode.PercentOutput, CrabConstants.kSlideSpeed);
-    }
-
-    public void slideRight() {
-        m_motor.set(ControlMode.PercentOutput, -CrabConstants.kSlideSpeed);
+    public void slide(double speed) {
+        m_motor.set(ControlMode.PercentOutput, speed);
     }
 
     public void stop() {
         m_motor.set(ControlMode.PercentOutput, 0);
     }
-
 }

@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
-import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 
 public final class Constants {
@@ -15,12 +14,10 @@ public final class Constants {
     public static final class ArmConstants {
         public static final int kMotorPort = 6;
         public static final boolean kInvert = false;
-        public static final double kP = 0;
-        public static final double kI = 0;
-        public static final double kD = 0;
+        // Change the values below to vary speed for the a rm, from 0-1 with
+        // 0 not moving at all
         public static final double kDownSpeed = -1;
         public static final double kUpSpeed = 1;
-        public static final TrapezoidProfile.Constraints kConstraint = new TrapezoidProfile.Constraints(3, 3);
     }
 
     public static final class ClimberConstants {
@@ -72,6 +69,8 @@ public final class Constants {
     }
 
     public static final class DriveConstants {
+        public static final double kSlowMultiplier = .5;
+
         public static final int kMasterLeftPort = 3;
         public static final InvertType kMasterLeftInvert = InvertType.None;
         public static final int kFollowerLeftPort = 10;
@@ -132,9 +131,10 @@ public final class Constants {
 
     public static final class SpinConstants {
         public static final int kMotorPort = 1;
-        public static final boolean kInversion = false;
+        public static final boolean kInvert = false;
         // Change the value below to vary the control panel motor speed, from 0-1 with 0
         // not moving at all
         public static final double kSpeed = 1;
+        public static final double kSlowSpeed = .2;
     }
 }

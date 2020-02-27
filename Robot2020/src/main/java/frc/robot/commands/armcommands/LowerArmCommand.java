@@ -13,10 +13,10 @@ public class LowerArmCommand extends CommandBase {
   }
 
   public void initialize() {
-    m_armSubsystem.override(ArmConstants.kDownSpeed);
+    m_armSubsystem.setPercentOutput(ArmConstants.kDownSpeed);
   }
 
   public void end(boolean interrputed) {
-    m_armSubsystem.override(0);
+    m_armSubsystem.setPercentOutput(0);
   }
 }

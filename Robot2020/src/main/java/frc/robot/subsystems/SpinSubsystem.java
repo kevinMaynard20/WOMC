@@ -11,11 +11,11 @@ public class SpinSubsystem extends SubsystemBase {
     private final VictorSPX m_motor = new VictorSPX(SpinConstants.kMotorPort);
 
     public SpinSubsystem() {
-        m_motor.setInverted(SpinConstants.kInversion);
+        m_motor.setInverted(SpinConstants.kInvert);
     }
 
-    public void spin() {
-        m_motor.set(ControlMode.PercentOutput, SpinConstants.kSpeed);
+    public void spin(double speed) {
+        m_motor.set(ControlMode.PercentOutput, speed);
     }
 
     public void stopSpin() {

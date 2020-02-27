@@ -1,6 +1,7 @@
 package frc.robot.commands.crabcommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.CrabConstants;
 import frc.robot.subsystems.CrabSubsystem;
 
 public class SlideLeftCommand extends CommandBase {
@@ -13,7 +14,7 @@ public class SlideLeftCommand extends CommandBase {
   }
 
   public void execute() {
-    m_crabSubsystem.slideLeft();
+    m_crabSubsystem.slide(CrabConstants.kSlideSpeed);
   }
 
   public void end(boolean interrupted) {
