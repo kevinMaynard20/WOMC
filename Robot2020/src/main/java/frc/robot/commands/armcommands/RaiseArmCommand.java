@@ -5,19 +5,18 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.Constants.ArmConstants;
 
 public class RaiseArmCommand extends CommandBase {
-    private final ArmSubsystem m_armSubsystem;
+  private final ArmSubsystem m_armSubsystem;
 
-    public RaiseArmCommand(ArmSubsystem armSubsystem) {
-        m_armSubsystem = armSubsystem;
+  public RaiseArmCommand(ArmSubsystem armSubsystem) {
+    m_armSubsystem = armSubsystem;
+    addRequirements(armSubsystem);
+  }
 
-        addRequirements(armSubsystem);
-    }
+  public void initialize() {
+    m_armSubsystem.override(ArmConstants.kUpSpeed);
+  }
 
-    public void initialize() {
-        m_armSubsystem.setPosition(ArmConstants.kUpperArmSetPoint);
-    }
-    
-    public void end(boolean interrputed) {
-        //?
-      }
+  public void end(boolean interrputed) {
+    m_armSubsystem.override(0);
+  }
 }

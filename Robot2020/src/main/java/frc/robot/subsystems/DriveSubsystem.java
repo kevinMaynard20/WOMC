@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
@@ -41,13 +42,15 @@ public class DriveSubsystem extends SubsystemBase {
      */
     public void periodic() {
         m_odometry.update(Rotation2d.fromDegrees(getHeading()), getLeftEncoderPosition(), getRightEncoderPosition());
+        SmartDashboard.putNumber("Left velocity", getLeftEncoderVelocity());
+        SmartDashboard.putNumber("Right velocity", getRightEncoderVelocity());
     }
 
     /**
      * @return The left encoder position (meters)
      */
     public double getLeftEncoderPosition() {
-        return -m_masterLeft.getSelectedSensorPosition() * Math.PI * DriveConstants.kWheelDiameterMeters
+        return m_masterLeft.getSelectedSensorPosition() * Math.PI * DriveConstants.kWheelDiameterMeters
                 / DriveConstants.kEncoderEdgesPerRotation;
     }
 
@@ -55,7 +58,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @return The right encoder position (meters)
      */
     public double getRightEncoderPosition() {
-        return m_masterRight.getSelectedSensorPosition() * Math.PI * DriveConstants.kWheelDiameterMeters
+        return -m_masterRight.getSelectedSensorPosition() * Math.PI * DriveConstants.kWheelDiameterMeters
                 / DriveConstants.kEncoderEdgesPerRotation;
     }
 
@@ -70,7 +73,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @return The velocity of the left encoder (meters/s)
      */
     public double getLeftEncoderVelocity() {
-        return -m_masterLeft.getSelectedSensorVelocity() * 10 * Math.PI * DriveConstants.kWheelDiameterMeters
+        return m_masterLeft.getSelectedSensorVelocity() * 10 * Math.PI * DriveConstants.kWheelDiameterMeters
                 / DriveConstants.kEncoderEdgesPerRotation;
     }
 
@@ -78,7 +81,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @return The velocity of the right encoder (meters/s)
      */
     public double getRightEncoderVelocity() {
-        return m_masterRight.getSelectedSensorVelocity() * 10 * Math.PI * DriveConstants.kWheelDiameterMeters
+        return -m_masterRight.getSelectedSensorVelocity() * 10 * Math.PI * DriveConstants.kWheelDiameterMeters
                 / DriveConstants.kEncoderEdgesPerRotation;
     }
 

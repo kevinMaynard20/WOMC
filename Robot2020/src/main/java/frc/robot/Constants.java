@@ -18,8 +18,8 @@ public final class Constants {
         public static final double kP = 0;
         public static final double kI = 0;
         public static final double kD = 0;
-        public static final double kLowerArmSetPoint = 0;
-        public static final double kUpperArmSetPoint = 0;
+        public static final double kDownSpeed = -1;
+        public static final double kUpSpeed = 1;
         public static final TrapezoidProfile.Constraints kConstraint = new TrapezoidProfile.Constraints(3, 3);
     }
 
@@ -35,18 +35,18 @@ public final class Constants {
     }
 
     public static final class ColorWheelConstants {
-        public static final int kForwardChannel = 4;
-        public static final int kReverseChannel = 5;
+        public static final int kForwardChannel = 1;
+        public static final int kReverseChannel = 0;
     }
 
     public static final class ControllerConstants {
         public static final int kDriverControllerPort = 0;
         public static final int kOperatorControllerPort = 1;
-        public static final double kDeadzone = 0.15;
+        public static final double kDeadzone = 0.10;
         public static final double kTriggerDeadzone = .05;
         // Change the values below to vary the turning sensitivity, from 0-1 with 0 not
         // moving at all
-        public static final double kSlowMultiplier = .2;
+        public static final double kSlowMultiplier = .5;
         public static final double kFastMultiplier = .8;
 
         public static final class Button {
@@ -90,9 +90,9 @@ public final class Constants {
         public static final double kaVoltSecondsSquaredPerMeter = .164;
         public static final double kPDriveVel = .707;
         public static final double kTrackwidthMeters = 0.566991171;
-        public static final double kMaxSpeedMetersPerSecond = 2;
-        public static final double kMaxAccelerationMetersPerSecondSquared = .6;
-        public static final double kMaxRotSpeedMetersPerSecond = 2;
+        public static final double kMaxSpeedMetersPerSecond = 5;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 1;
+        public static final double kMaxRotSpeedMetersPerSecond = 3;
         public static final double kRamseteB = 2;
         public static final double kRamseteZeta = .7;
         public static final double kWheelDiameterMeters = .1524;
@@ -113,7 +113,7 @@ public final class Constants {
 
     public static final class IntakeConstants {
         public static final int kMotorPort = 4;
-        public static final boolean kInvert = false;
+        public static final boolean kInvert = true;
     }
 
     public static final class LimelightConstants {

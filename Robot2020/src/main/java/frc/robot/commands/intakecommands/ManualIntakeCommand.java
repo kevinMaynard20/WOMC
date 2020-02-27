@@ -3,6 +3,7 @@ package frc.robot.commands.intakecommands;
 import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.ControllerConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class ManualIntakeCommand extends CommandBase {
@@ -18,7 +19,8 @@ public class ManualIntakeCommand extends CommandBase {
     }
 
     public void execute() {
-        m_intakeSubsystem.run(m_rightAxis.get() - m_leftAxis.get());
+        m_intakeSubsystem.run((Math.abs(m_rightAxis.get()) > ControllerConstants.kTriggerDeadzone ? m_rightAxis.get()
+                : 0) - (Math.abs(m_leftAxis.get()) > ControllerConstants.kTriggerDeadzone ? m_leftAxis.get() : 0));
     }
 
 }

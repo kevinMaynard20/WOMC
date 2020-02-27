@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ArmConstants;
 
@@ -19,13 +20,15 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public void periodic() {
-        m_motor.set(ControlMode.PercentOutput, m_pidController.calculate(m_motor.getSelectedSensorPosition()));
+        // m_motor.set(ControlMode.PercentOutput,
+        // m_pidController.calculate(m_motor.getSelectedSensorPosition()));
     }
 
     public void setPosition(double setPoint) {
         m_pidController.setGoal(setPoint);
     }
-    public void override(double speed){
+
+    public void override(double speed) {
         m_motor.set(ControlMode.PercentOutput, speed);
     }
 
