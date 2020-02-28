@@ -90,8 +90,8 @@ public class ArcadeDriveCommand extends CommandBase {
 			leftMotorOutput /= maxMagnitude;
 			rightMotorOutput /= maxMagnitude;
 		}
-		m_driveSubsystem.tankDrive(m_slow ? leftMotorOutput : leftMotorOutput * DriveConstants.kSlowMultiplier,
-				m_slow ? rightMotorOutput : rightMotorOutput * DriveConstants.kSlowMultiplier);
+		m_driveSubsystem.tankDrive(m_slow ? leftMotorOutput * DriveConstants.kSlowMultiplier : leftMotorOutput,
+				m_slow ? rightMotorOutput * DriveConstants.kSlowMultiplier : rightMotorOutput);
 	}
 
 }

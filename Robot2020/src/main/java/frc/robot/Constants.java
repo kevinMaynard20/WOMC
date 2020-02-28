@@ -16,8 +16,9 @@ public final class Constants {
         public static final boolean kInvert = false;
         // Change the values below to vary speed for the a rm, from 0-1 with
         // 0 not moving at all
-        public static final double kDownSpeed = -1;
-        public static final double kUpSpeed = 1;
+        public static final double kDownSpeed = -.8;
+        public static final double kUpSpeed = .4;
+        public static final int kAutoNumIterations = 10;
     }
 
     public static final class ClimberConstants {

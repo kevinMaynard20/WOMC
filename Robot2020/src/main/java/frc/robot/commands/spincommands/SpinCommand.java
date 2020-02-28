@@ -15,7 +15,7 @@ public class SpinCommand extends CommandBase {
     }
 
     public void initialize() {
-        m_spinSubsystem.spin(m_slow ? SpinConstants.kSpeed : SpinConstants.kSlowSpeed);
+        m_spinSubsystem.spin(m_slow ? SpinConstants.kSlowSpeed : SpinConstants.kSpeed);
     }
 
     public void end(boolean interruped) {
