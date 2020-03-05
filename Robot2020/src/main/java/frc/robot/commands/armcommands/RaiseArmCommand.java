@@ -19,4 +19,8 @@ public class RaiseArmCommand extends CommandBase {
   public void end(boolean interrputed) {
     m_armSubsystem.setPercentOutput(0);
   }
+
+  public boolean isFinished() {
+    return m_armSubsystem.atTop();
+  }
 }

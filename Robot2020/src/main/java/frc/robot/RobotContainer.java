@@ -8,9 +8,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.ControllerConstants.Button;
+import frc.robot.Constants.ControllerConstants.DPad;
 import frc.robot.commands.armcommands.LowerArmCommand;
+import frc.robot.commands.armcommands.ManualArmCommand;
 import frc.robot.commands.armcommands.RaiseArmCommand;
 import frc.robot.commands.autocommands.LevelZeroCommand;
 import frc.robot.commands.climbercommands.ExtendCommand;
@@ -55,34 +58,35 @@ public class RobotContainer {
     generateTrajectoryCommands();
 
     m_driveSubsystem.setDefaultCommand(new ArcadeDriveCommand(m_driveSubsystem,
-        () -> m_driverController.getTriggerAxis(Hand.kRight) - m_driverController.getTriggerAxis(Hand.kLeft),
+        () -> m_driverController.getTriggerAxis(Hand.kRight), () -> m_driverController.getTriggerAxis(Hand.kLeft),
         () -> m_driverController.getX(Hand.kLeft), () -> m_driverController.getX(Hand.kRight), false));
   }
 
   private void configureButtonBindings() {
     // Driver
     // Drive fast or slow buttons
-    new POVButton(m_driverController, 0).whenPressed(new ArcadeDriveCommand(m_driveSubsystem,
-        () -> m_driverController.getTriggerAxis(Hand.kRight) - m_driverController.getTriggerAxis(Hand.kLeft),
+    new POVButton(m_driverController, DPad.kUp).whenPressed(new ArcadeDriveCommand(m_driveSubsystem,
+        () -> m_driverController.getTriggerAxis(Hand.kRight), () -> m_driverController.getTriggerAxis(Hand.kLeft),
         () -> m_driverController.getX(Hand.kLeft), () -> m_driverController.getX(Hand.kRight), false));
 
-    new POVButton(m_driverController, 180).whenPressed(new ArcadeDriveCommand(m_driveSubsystem,
-        () -> m_driverController.getTriggerAxis(Hand.kRight) - m_driverController.getTriggerAxis(Hand.kLeft),
+    new POVButton(m_driverController, DPad.kDown).whenPressed(new ArcadeDriveCommand(m_driveSubsystem,
+        () -> m_driverController.getTriggerAxis(Hand.kRight), () -> m_driverController.getTriggerAxis(Hand.kLeft),
         () -> m_driverController.getX(Hand.kLeft), () -> m_driverController.getX(Hand.kRight), true));
 
     new JoystickButton(m_driverController, Button.kBumperLeft).whenHeld(new SlideLeftCommand(m_crabSubsystem));
     new JoystickButton(m_driverController, Button.kBumperRight).whenHeld(new SlideRightCommand(m_crabSubsystem));
 
     // Operator
-    new JoystickButton(m_operatorController, Button.kX).whenHeld(new RaiseArmCommand(m_armSubsystem));
-    new JoystickButton(m_operatorController, Button.kA).whenHeld(new LowerArmCommand(m_armSubsystem));
+    new JoystickButton(m_operatorController, Button.kX).whenPressed(new RaiseArmCommand(m_armSubsystem));
+    new JoystickButton(m_operatorController, Button.kA).whenPressed(new LowerArmCommand(m_armSubsystem));
+    new Trigger(() -> Math.abs(m_operatorController.getY(Hand.kLeft)) > ControllerConstants.kDeadzone)
+        .whenActive(new ManualArmCommand(m_armSubsystem, () -> m_operatorController.getY(Hand.kLeft)));
 
     m_intakeSubsystem.setDefaultCommand(new ManualIntakeCommand(m_intakeSubsystem,
         () -> m_operatorController.getTriggerAxis(Hand.kRight), () -> m_operatorController.getTriggerAxis(Hand.kLeft)));
     new JoystickButton(m_operatorController, Button.kBumperLeft).whenHeld(new ExtendCommand(m_climberSubsystem));
     new JoystickButton(m_operatorController, Button.kBumperRight).whenHeld(new RetractCommand(m_climberSubsystem));
-    new JoystickButton(m_operatorController, Button.kStickLeft)
-        .toggleWhenPressed(new ExtendBarCommand(m_colorWheelSubsystem));
+    new POVButton(m_operatorController, DPad.kUp).toggleWhenPressed(new ExtendBarCommand(m_colorWheelSubsystem));
     new JoystickButton(m_operatorController, Button.kB).whenHeld(new SpinCommand(m_spinSubsystem, false));
     new JoystickButton(m_operatorController, Button.kY).whenHeld(new SpinCommand(m_spinSubsystem, true));
   }
@@ -92,7 +96,7 @@ public class RobotContainer {
   }
 
   private void generateTrajectoryCommands() {
-    m_autoChooser.addOption("Level Zero", new LevelZeroCommand(m_driveSubsystem));
+    m_autoChooser.addOption("Level Zero", new LevelZeroCommand(m_driveSubsystem, m_armSubsystem, m_intakeSubsystem));
     SmartDashboard.putData(m_autoChooser);
   }
 }

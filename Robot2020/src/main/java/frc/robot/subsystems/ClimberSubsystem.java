@@ -32,6 +32,6 @@ public class ClimberSubsystem extends SubsystemBase {
     }
 
     public void stopRetract() {
-        m_extendMotor.set(ControlMode.PercentOutput, 0);
+        m_retractMotor.set(ControlMode.PercentOutput, 0);
     }
 }

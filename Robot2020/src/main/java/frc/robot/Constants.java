@@ -18,6 +18,8 @@ public final class Constants {
         // 0 not moving at all
         public static final double kDownSpeed = -.8;
         public static final double kUpSpeed = .4;
+        public static final int kTopLimitSwitchPort = 1;
+        public static final int kBottomLimitSwitchPort = 2;
         public static final int kAutoNumIterations = 10;
     }
 
@@ -58,6 +60,13 @@ public final class Constants {
             public static final int kY = 4;
             public static final int kBack = 7;
             public static final int kStart = 8;
+        }
+
+        public static final class DPad {
+            public static final int kUp = 0;
+            public static final int kRight = 90;
+            public static final int kDown = 180;
+            public static final int kLeft = 270;
         }
     }
 
@@ -114,6 +123,7 @@ public final class Constants {
     public static final class IntakeConstants {
         public static final int kMotorPort = 4;
         public static final boolean kInvert = true;
+        public static final double kSpeed = 1;
     }
 
     public static final class LimelightConstants {

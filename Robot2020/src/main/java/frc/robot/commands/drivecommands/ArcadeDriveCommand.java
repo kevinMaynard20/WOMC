@@ -10,16 +10,17 @@ import frc.robot.subsystems.DriveSubsystem;
 
 public class ArcadeDriveCommand extends CommandBase {
 	private final DriveSubsystem m_driveSubsystem;
-	private final Supplier<Double> m_speedStraight, m_speedRot, m_slowerRot;
+	private final Supplier<Double> m_speedForward, m_speedReverse, m_speedRot, m_slowerRot;
 	private final boolean m_slow;
 	private double m_quickStopThreshold = .2;
 	private double m_quickStopAlpha = .1;
 	private double m_quickStopAccumulator = 0;
 
-	public ArcadeDriveCommand(DriveSubsystem driveSubsystem, Supplier<Double> speedStraight, Supplier<Double> speedRot,
-			Supplier<Double> slowerRot, boolean slow) {
+	public ArcadeDriveCommand(DriveSubsystem driveSubsystem, Supplier<Double> speedForward,
+			Supplier<Double> speedReverse, Supplier<Double> speedRot, Supplier<Double> slowerRot, boolean slow) {
 		m_driveSubsystem = driveSubsystem;
-		m_speedStraight = speedStraight;
+		m_speedForward = speedForward;
+		m_speedReverse = speedReverse;
 		m_speedRot = speedRot;
 		m_slowerRot = slowerRot;
 		m_slow = slow;
@@ -27,16 +28,21 @@ public class ArcadeDriveCommand extends CommandBase {
 	}
 
 	public void execute() {
-		double speedStraight = Math.abs(m_speedStraight.get()) > ControllerConstants.kTriggerDeadzone
-				? m_speedStraight.get()
+		double speedForward = Math.abs(m_speedForward.get()) > ControllerConstants.kTriggerDeadzone
+				? m_speedForward.get()
 				: 0;
+		double speedReverse = Math.abs(m_speedReverse.get()) > ControllerConstants.kTriggerDeadzone
+				? m_speedReverse.get()
+				: 0;
+		double speedStraight = speedForward - speedReverse;
 		double speedRot = Math.abs(m_speedRot.get()) > ControllerConstants.kDeadzone
 				? m_speedRot.get() * ControllerConstants.kFastMultiplier
 				: 0;
 		double slowerRot = Math.abs(m_slowerRot.get()) > ControllerConstants.kDeadzone
 				? m_slowerRot.get() * ControllerConstants.kSlowMultiplier
 				: 0;
-		curvatureDrive(speedStraight, Math.abs(speedRot) > 0 ? speedRot : slowerRot, Math.abs(speedRot) > 0);
+		curvatureDrive(speedStraight, Math.abs(speedRot) > 0 ? speedRot : slowerRot,
+				Math.abs(speedRot) > 0 || speedStraight == 0);
 	}
 
 	public void curvatureDrive(double xSpeed, double zRotation, boolean isQuickTurn) {
