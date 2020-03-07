@@ -26,10 +26,10 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public boolean atTop() {
-        return m_topLimitSwitch.get();
+        return !m_topLimitSwitch.get();
     }
 
     public boolean atBottom() {
-        return m_bottomLimitSwitch.get();
+        return !m_bottomLimitSwitch.get();
     }
 }

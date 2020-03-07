@@ -16,10 +16,10 @@ public final class Constants {
         public static final boolean kInvert = false;
         // Change the values below to vary speed for the a rm, from 0-1 with
         // 0 not moving at all
-        public static final double kDownSpeed = -.8;
-        public static final double kUpSpeed = .4;
-        public static final int kTopLimitSwitchPort = 1;
-        public static final int kBottomLimitSwitchPort = 2;
+        public static final double kDownSpeed = -.15;
+        public static final double kUpSpeed = .1;
+        public static final int kTopLimitSwitchPort = 8;
+        public static final int kBottomLimitSwitchPort = 7;
         public static final int kAutoNumIterations = 10;
     }
 
@@ -79,7 +79,7 @@ public final class Constants {
     }
 
     public static final class DriveConstants {
-        public static final double kSlowMultiplier = .5;
+        public static final double kSlowMultiplier = .3;
 
         public static final int kMasterLeftPort = 3;
         public static final InvertType kMasterLeftInvert = InvertType.None;
@@ -99,8 +99,8 @@ public final class Constants {
         public static final double kaVoltSecondsSquaredPerMeter = .164;
         public static final double kPDriveVel = .707;
         public static final double kTrackwidthMeters = 0.566991171;
-        public static final double kMaxSpeedMetersPerSecond = 5;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 1;
+        public static final double kMaxSpeedMetersPerSecond = 3;
+        public static final double kMaxAccelerationMetersPerSecondSquared = .5;
         public static final double kMaxRotSpeedMetersPerSecond = 3;
         public static final double kRamseteB = 2;
         public static final double kRamseteZeta = .7;
@@ -127,17 +127,11 @@ public final class Constants {
     }
 
     public static final class LimelightConstants {
-        public static final double kDisP = .016;
-        public static final double kDisI = 0;
-        public static final double kDisD = 0;
         public static final double kTurnP = 0.022;
         public static final double kTurnI = 0.00001;
         public static final double kTurnD = 0;
         public static final double kTurnTolerance = .1;
         public static final double kDistanceTolerance = .1;
-        public static final double kCameraHeight = 27.6;
-        public static final double kCameraAngle = 18.43;
-        public static final double kTargetHeight = 89.75;
     }
 
     public static final class SpinConstants {

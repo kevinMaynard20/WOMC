@@ -17,7 +17,7 @@ public class ManualArmCommand extends CommandBase {
     }
 
     public void execute() {
-        m_armSubsystem.setPercentOutput(Math.abs(m_speed.get() > ControllerConstants.kDeadzone ? m_speed.get() : 0));
+        m_armSubsystem.setPercentOutput(Math.abs(m_speed.get()) > ControllerConstants.kDeadzone ? m_speed.get() : 0);
     }
 
     public void end(boolean interrputed) {

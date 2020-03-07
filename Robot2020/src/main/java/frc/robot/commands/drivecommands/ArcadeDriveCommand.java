@@ -38,11 +38,17 @@ public class ArcadeDriveCommand extends CommandBase {
 		double speedRot = Math.abs(m_speedRot.get()) > ControllerConstants.kDeadzone
 				? m_speedRot.get() * ControllerConstants.kFastMultiplier
 				: 0;
-		double slowerRot = Math.abs(m_slowerRot.get()) > ControllerConstants.kDeadzone
-				? m_slowerRot.get() * ControllerConstants.kSlowMultiplier
-				: 0;
-		curvatureDrive(speedStraight, Math.abs(speedRot) > 0 ? speedRot : slowerRot,
-				Math.abs(speedRot) > 0 || speedStraight == 0);
+
+		if (speedRot != 0) {
+			curvatureDrive(speedStraight, speedRot, true);
+		} else {
+			double slowerRot = Math.abs(m_slowerRot.get()) > ControllerConstants.kDeadzone ? m_slowerRot.get() : 0;
+			if (speedStraight == 0) {
+				curvatureDrive(speedStraight, slowerRot * DriveConstants.kSlowMultiplier, true);
+			} else {
+				curvatureDrive(speedStraight, slowerRot, false);
+			}
+		}
 	}
 
 	public void curvatureDrive(double xSpeed, double zRotation, boolean isQuickTurn) {

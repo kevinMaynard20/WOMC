@@ -3,13 +3,12 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.LimelightConstants;
 
 public class LimelightSubsystem extends SubsystemBase {
 
     private final NetworkTable m_limelightTable = NetworkTableInstance.getDefault().getTable("limelight");;
     private boolean isTargetVisible;
-    private double xAngle, yAngle, distance;
+    private double xAngle, yAngle;
 
     public LimelightSubsystem() {
     }
@@ -18,10 +17,6 @@ public class LimelightSubsystem extends SubsystemBase {
         isTargetVisible = m_limelightTable.getEntry("tv").getDouble(0) == 1;
         xAngle = m_limelightTable.getEntry("tx").getDouble(0);
         yAngle = m_limelightTable.getEntry("ty").getDouble(0);
-        distance = isTargetVisible
-                ? (LimelightConstants.kTargetHeight - LimelightConstants.kCameraHeight)
-                        / (Math.tan(Math.toRadians(LimelightConstants.kCameraAngle + getYAngle())))
-                : 0;
     }
 
     public boolean isTargetVisible() {
@@ -34,10 +29,6 @@ public class LimelightSubsystem extends SubsystemBase {
 
     public double getYAngle() {
         return yAngle;
-    }
-
-    public double getDistance() {
-        return distance;
     }
 
     public void turnOnLight() {

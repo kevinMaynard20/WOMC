@@ -1,10 +1,13 @@
 package frc.robot.commands.drivecommands;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.LimelightConstants;
 import frc.robot.subsystems.DriveSubsystem;
@@ -14,6 +17,7 @@ public class LimelightTurnCommand extends CommandBase {
 
     private final LimelightSubsystem m_limelightSubsystem;
     private final DriveSubsystem m_driveSubsystem;
+    private final Supplier<Double> m_forwardSpeed, m_reverseSpeed;
     private final double m_turnGoal;
     private final ProfiledPIDController m_turnController = new ProfiledPIDController(LimelightConstants.kTurnP,
             LimelightConstants.kTurnI, LimelightConstants.kTurnD, new Constraints(
@@ -26,9 +30,12 @@ public class LimelightTurnCommand extends CommandBase {
      * @param driveSubsystem     The drivetrain subsystem to be used
      * @param turnGoal           Supplier of the angle setpoint towards the target
      */
-    public LimelightTurnCommand(LimelightSubsystem limelightSubsystem, DriveSubsystem driveSubsystem, double turnGoal) {
+    public LimelightTurnCommand(LimelightSubsystem limelightSubsystem, DriveSubsystem driveSubsystem,
+            Supplier<Double> forwardSpeed, Supplier<Double> reverseSpeed, double turnGoal) {
         m_limelightSubsystem = limelightSubsystem;
         m_driveSubsystem = driveSubsystem;
+        m_forwardSpeed = forwardSpeed;
+        m_reverseSpeed = reverseSpeed;
         m_turnGoal = turnGoal;
         addRequirements(driveSubsystem);
     }
@@ -45,9 +52,15 @@ public class LimelightTurnCommand extends CommandBase {
      * Update the motor outputs
      */
     public void execute() {
+        double robotForwardSpeed = Math.abs(m_forwardSpeed.get()) > ControllerConstants.kTriggerDeadzone
+                ? m_forwardSpeed.get()
+                : 0;
+        double robotReverseSpeed = Math.abs(m_reverseSpeed.get()) > ControllerConstants.kTriggerDeadzone
+                ? m_reverseSpeed.get()
+                : 0;
         double robotTurnSpeed = m_turnController.calculate(m_limelightSubsystem.getXAngle());
         DifferentialDriveWheelSpeeds wheelSpeeds = DriveConstants.kDriveKinematics
-                .toWheelSpeeds(new ChassisSpeeds(0, 0, robotTurnSpeed));
+                .toWheelSpeeds(new ChassisSpeeds(robotForwardSpeed - robotReverseSpeed, 0, robotTurnSpeed));
         double leftVoltage = DriveConstants.kFeedForward.calculate(wheelSpeeds.leftMetersPerSecond);
         double rightVoltage = DriveConstants.kFeedForward.calculate(wheelSpeeds.rightMetersPerSecond);
         m_driveSubsystem.tankDriveVolts(leftVoltage, rightVoltage);

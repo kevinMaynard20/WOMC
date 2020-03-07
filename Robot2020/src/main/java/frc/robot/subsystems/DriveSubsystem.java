@@ -34,7 +34,6 @@ public class DriveSubsystem extends SubsystemBase {
         m_followerRight.follow(m_masterRight);
 
         resetEncoders();
-        zeroHeading();
     }
 
     /**
@@ -42,8 +41,8 @@ public class DriveSubsystem extends SubsystemBase {
      */
     public void periodic() {
         m_odometry.update(Rotation2d.fromDegrees(getHeading()), getLeftEncoderPosition(), getRightEncoderPosition());
-        SmartDashboard.putNumber("Left velocity", getLeftEncoderVelocity());
-        SmartDashboard.putNumber("Right velocity", getRightEncoderVelocity());
+        SmartDashboard.putNumber("X position", getPose().getTranslation().getX());
+        SmartDashboard.putNumber("Y position", getPose().getTranslation().getY());
         SmartDashboard.putNumber("Heading", getPose().getRotation().getDegrees());
     }
 
@@ -59,7 +58,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @return The right encoder position (meters)
      */
     public double getRightEncoderPosition() {
-        return -m_masterRight.getSelectedSensorPosition() * Math.PI * DriveConstants.kWheelDiameterMeters
+        return m_masterRight.getSelectedSensorPosition() * Math.PI * DriveConstants.kWheelDiameterMeters
                 / DriveConstants.kEncoderEdgesPerRotation;
     }
 
@@ -82,7 +81,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @return The velocity of the right encoder (meters/s)
      */
     public double getRightEncoderVelocity() {
-        return -m_masterRight.getSelectedSensorVelocity() * 10 * Math.PI * DriveConstants.kWheelDiameterMeters
+        return m_masterRight.getSelectedSensorVelocity() * 10 * Math.PI * DriveConstants.kWheelDiameterMeters
                 / DriveConstants.kEncoderEdgesPerRotation;
     }
 
